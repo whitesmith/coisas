@@ -422,10 +422,10 @@ const Images = observer(function Images () {
     images.length
       ? 'drag an image from here to the editor to insert it.'
       : '',
-    h('.columns', [
-      h('.column.is-half', images.slice(0, mid).map(renderImage)),
-      h('.column.is-half', images.slice(mid).map(renderImage))
-    ]),
+    // h('.columns', [
+    //   h('.column.is-half', images.slice(0, mid).map(renderImage)),
+    //   h('.column.is-half', images.slice(mid).map(renderImage))
+    // ]),
     state.mediaUpload.file.get()
       ? h(Preview, {
         name: state.mediaUpload.file.get().name,

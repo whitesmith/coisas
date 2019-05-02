@@ -5,3 +5,4 @@ npm-debug.log
 browserify-cache.json
 package-lock.json
 dist
+.cache

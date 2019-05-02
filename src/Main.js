@@ -11,7 +11,7 @@ module.exports = observer(() => {
       h('nav.nav', [
         h('.nav-left', [
           h('a.nav-item', {href: '#!/'}, [
-            h('img', {src: 'https://raw.githubusercontent.com/fiatjaf/coisas/master/assets/icon.png'})
+            h('img', {src: './icon.png'})
           ]),
           h('a.nav-item', {href: '#!/'}, 'coisas')
         ]),

@@ -1,12 +1,7 @@
 {
   "scripts": {
-    "css": "node-sass styles/main.scss > dist/style.css",
-    "watch-css": "find ./ -name \"*.scss\" ! -path \"*node_modules*\" | entr yarn css",
-    "watch": "find ./ -name \"*.js\" ! -name \"bundle.js\" ! -path \"*node_modules*\" | entr browserifyinc -vd src/app.js -o dist/bundle.js",
-    "build": "browserify src/app.js -o dist/bundle.js && npm run css",
-    "build-prod": "env NODE_ENV=production npm run build",
-    "server": "npm run css && http-server ./",
-    "start": "foreman start -f Procfile.dev"
+    "build": "parcel build index.html",
+    "start": "parcel index.html"
   },
   "browserify": {
     "transform": [
@@ -21,6 +16,9 @@
         }
       ]
     ]
+  },
+  "staticFiles": {
+    "staticPath": "assets"
   },
   "dependencies": {
     "based-blob": "^1.0.1",
@@ -49,11 +47,11 @@
     "render-media": "^2.10.0"
   },
   "devDependencies": {
-    "browserify": "^14.3.0",
-    "browserify-incremental": "^3.1.1",
     "bubleify": "^1.1.0",
     "bulma": "^0.5.0",
-    "http-server": "^0.11.1",
-    "node-sass": "^4.5.3"
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-static-files-copy": "^2.0.0",
+    "parcel-plugin-transformify": "^0.2.0",
+    "sass": "^1.19.0"
   }
 }
