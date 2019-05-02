@@ -1,0 +1,3 @@
+web: yarn server
+browserify: yarn watch
+css: yarn watch-css
