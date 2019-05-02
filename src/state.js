@@ -3,11 +3,11 @@ const {observable, computed, autorun} = require('mobx')
 const matter = require('gray-matter')
 const mimeTypes = require('render-media/lib/mime.json')
 
-const gh = require('./helpers/github')
+const gh = require('../helpers/github')
 const {ADD, REPLACE, UPLOAD, EDIT, DIRECTORY} = require('./constants').modes
-const base64 = require('./helpers/base64')
+const base64 = require('../helpers/base64')
 const log = require('./log')
-const storage = require('./helpers/storage')
+const storage = require('../helpers/storage')
 
 /* STATE */
 

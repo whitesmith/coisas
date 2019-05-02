@@ -11,7 +11,7 @@ module.exports = observer(() => {
       h('nav.nav', [
         h('.nav-left', [
           h('a.nav-item', {href: '#!/'}, [
-            h('img', {src: 'https://raw.githubusercontent.com/fiatjaf/coisas/master/icon.png'})
+            h('img', {src: 'https://raw.githubusercontent.com/fiatjaf/coisas/master/assets/icon.png'})
           ]),
           h('a.nav-item', {href: '#!/'}, 'coisas')
         ]),
@@ -63,4 +63,4 @@ module.exports = observer(() => {
   )
 })
 
-const components = require('./components')
+const components = require('../components')

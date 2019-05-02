@@ -5,15 +5,15 @@ const TreeView = require('react-treeview')
 const {observer} = require('mobx-react')
 const fwitch = require('fwitch')
 
-const {ADD, REPLACE, UPLOAD, EDIT, DIRECTORY} = require('../constants').modes
-const {loadTree, resetTreeForCurrent, loadFile, newFile, clearCurrent} = require('../state')
+const {ADD, REPLACE, UPLOAD, EDIT, DIRECTORY} = require('../src/constants').modes
+const {loadTree, resetTreeForCurrent, loadFile, newFile, clearCurrent} = require('../src/state')
 const renderWithFrontmatter = require('../helpers/render-with-frontmatter')
 const ProseMirror = require('./ProseMirror')
 const FileUpload = require('./FileUpload')
 const Preview = require('./Preview')
 const base64 = require('../helpers/base64')
-const state = require('../state')
-const log = require('../log')
+const state = require('../src/state')
+const log = require('../src/log')
 const gh = require('../helpers/github')
 
 module.exports = observer(function Repo () {
