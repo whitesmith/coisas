@@ -92574,7 +92574,7 @@ if ('serviceWorker' in navigator) {
     return console.log('failed to register service worker.', e);
   });
 }
-},{"xtend":"node_modules/xtend/immutable.js","fetch-js":"node_modules/fetch-js/index.js","react":"node_modules/react/react.js","react-dom":"node_modules/react-dom/index.js","react-hyperscript":"node_modules/react-hyperscript/index.js","gray-matter":"node_modules/gray-matter/index.js","./preferences":"src/preferences.js","./Main":"src/Main.js","/Users/tomasmcm/whitesmith/qontent/service-worker.js":[["service-worker.js","service-worker.js"],"service-worker.js.map","service-worker.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"xtend":"node_modules/xtend/immutable.js","fetch-js":"node_modules/fetch-js/index.js","react":"node_modules/react/react.js","react-dom":"node_modules/react-dom/index.js","react-hyperscript":"node_modules/react-hyperscript/index.js","gray-matter":"node_modules/gray-matter/index.js","./preferences":"src/preferences.js","./Main":"src/Main.js","./../service-worker.js":[["service-worker.js","service-worker.js"],"service-worker.js.map","service-worker.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -92602,7 +92602,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65358" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49882" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
