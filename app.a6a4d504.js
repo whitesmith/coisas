@@ -92566,7 +92566,7 @@ var Main = require('./Main');
 render(React.createElement(Main), document.getElementById('root'));
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register("/service-worker.js", {
+  navigator.serviceWorker.register("/qontent/service-worker.js", {
     scope: '/'
   }).then(function (reg) {
     return console.log('service worker registered.', reg.scope);
@@ -92602,7 +92602,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64882" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65358" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -92778,4 +92778,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/app.js"], null)
-//# sourceMappingURL=/app.a6a4d504.js.map
+//# sourceMappingURL=/qontent/app.a6a4d504.js.map
