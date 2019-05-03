@@ -29,7 +29,7 @@ Here's a screenshot if you don't have time for the demo (this is the raw interfa
 
 To customize the app behavior specifically for your repository, create a file named `coisas.js` and put it at the root of the repository. That file may contain anything and will be loaded and executed dynamically by **coisas** as part of its initialization process.
 
-From that file you must modify the global object `window.coisas`, whose defaults are specified in [preferences.js](preferences.js) (along with comments to explain each property). If you need more customization options I'm happy to include them, please open an issue.
+From that file you must modify the global object `window.qontent`, whose defaults are specified in [preferences.js](preferences.js) (along with comments to explain each property). If you need more customization options I'm happy to include them, please open an issue.
 
 #### Styles
 

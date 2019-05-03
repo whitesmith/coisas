@@ -17,24 +17,28 @@ const log = require('../src/log')
 const gh = require('../helpers/github')
 
 module.exports = observer(function Repo () {
-  return h('.columns.is-mobile', [
-    h('.column.is-3', [
+  return h('.columns.is-centered', [
+    h('.column', {
+      className: state.current.loading.get() ? 'is-half' : 'is-hidden'
+    }, [
       h(Menu, {name: 'menu'}),
-      h(Save)
-    ]),
-    h('.column.is-7', [
-      state.current.loading.get()
-        ? h('div')
-        : fwitch(state.mode.get(), {
-          [ADD]: h(Page),
-          [REPLACE]: h(Upload),
-          [UPLOAD]: h(Upload),
-          [EDIT]: h(Page),
-          [DIRECTORY]: h(Directory)
-        })
-    ]),
-    h('.column.is-2', [
       h(Images)
+    ]),
+    h('.column.is-7', {
+      className: state.current.loading.get() ? 'is-hidden' : ''
+    }, [
+      h('a.button', {
+        href: `#!/${state.slug.get()}`,
+        onClick: () => state.clearCurrent()
+      }, '<'),
+      fwitch(state.mode.get(), {
+        [ADD]: h(Page),
+        [REPLACE]: h(Upload),
+        [UPLOAD]: h(Upload),
+        [EDIT]: h(Page),
+        [DIRECTORY]: h(Directory)
+      }),
+      h(Save)
     ])
   ])
 })
@@ -44,39 +48,77 @@ const Menu = observer(function Menu () {
 
   if (!topdir) return h('div')
 
-  return h('#Menu.menu', [
-    h('ul.menu-list', state.tree.get()
+  return h('#Menu.panel', [
+    h('p.panel-heading', state.repo.value),
+    state.tree.get()
       .filter(f => f.path)
       .filter(f => f.path.split('/').length === 1)
-      .map(f => h(Folder, {f}))
+      .map(f => h(Folder, {f:f, key:f.path}))
       .concat(
-        h('li', [
-          h(ButtonAdd, {dir: topdir, active: topdir.active})
-        ])
+        h(ButtonAdd, {dir: topdir, active: topdir.active, key: 'menu-add'})
       )
-    )
   ])
 })
 
+const getFileIcon = function(path){
+  let format = path.split('.').slice(-1)[0].toLowerCase();
+  switch (format) {
+    case 'doc':
+      return '.fa-file-word'
+    case 'pdf':
+      return '.fa-file-pdf'
+    case 'eot':
+    case 'woff':
+    case 'woff2':
+      return '.fa-file-contract'
+    case 'html':
+    case 'yml':
+    case 'js':
+    case 'css':
+    case 'scss':
+    case 'json':
+      return '.fa-file-code'
+    case 'ico':
+    case 'jpg':
+    case 'png':
+    case 'gif':
+    case 'svg':
+      return '.fa-file-image'
+    case 'mp4':
+    case 'mov':
+      return '.fa-file-video'
+    case 'csv':
+      return '.fa-file-csv'
+    case 'zip':
+      return '.fa-file-archive'
+    default:
+      return '.fa-file'
+  }
+}
+
 const Folder = observer(function Folder ({f}) {
   if (f.type === 'blob') {
-    return h('li', {
-      key: f.path
+    return h('a.panel-block', {
+      key: f.path,
+      href: `#!/${state.slug.get()}/${f.path}`,
+      onClick: () => {
+        clearCurrent()
+        loadFile(f.path)
+      }
     }, [
-      h('a', {
-        className: f.active ? 'is-active' : '',
-        href: `#!/${state.slug.get()}/${f.path}`,
-        onClick: () => {
-          clearCurrent()
-          loadFile(f.path)
-        }
-      }, f.path.split('/').slice(-1)[0])
+      h('span.panel-icon', [
+        h('i.fas' + getFileIcon(f.path), {
+          'aria-hidden': 'true'
+        })
+      ]),
+      f.path.split('/').slice(-1)[0]
     ])
   }
 
   let dir = f
   return (
     h(TreeView, {
+      treeViewClassName: 'panel-block tile is-vertical',
       nodeLabel: dir.path.split('/').slice(-1)[0],
       collapsed: dir.collapsed,
       onClick: () => {
@@ -84,16 +126,14 @@ const Folder = observer(function Folder ({f}) {
         state.tree.set(state.tree.get().concat() /* copy the array */)
       }
     }, [
-      h('ul.menu-list', state.tree.get()
+      h('div.panel', state.tree.get()
         .filter(f =>
           f.path.slice(0, dir.path.length + 1) === dir.path + '/' &&
           f.path.split('/').length - 1 === dir.path.split('/').length
         )
         .map(f => h(Folder, {key: f.path, f}))
         .concat(
-          h('li', [
-            h(ButtonAdd, {dir, active: dir.active})
-          ])
+          h(ButtonAdd, {dir, active: dir.active})
         )
       )
     ])
@@ -101,11 +141,13 @@ const Folder = observer(function Folder ({f}) {
 })
 
 const ButtonAdd = observer(function ButtonAdd ({dir, active}) {
-  return h('a', {
-    className: active ? 'is-active' : '',
-    href: `#!/${state.slug.get()}/?new-file-at=${dir.path}`,
-    onClick: () => newFile(dir.path).then(resetTreeForCurrent)
-  }, '+ new file')
+  return h('div.panel-block', [
+    h('a.button.is-link.is-outlined.is-fullwidth', {
+      className: active ? 'is-active' : '',
+      href: `#!/${state.slug.get()}/?new-file-at=${dir.path}`,
+      onClick: () => newFile(dir.path).then(resetTreeForCurrent)
+    }, '+ new file')
+  ])
 })
 
 const Delete = observer(function Delete () {
@@ -168,8 +210,8 @@ const Delete = observer(function Delete () {
 })
 
 const Upload = observer(function Upload () {
-  if (window.coisas.defaultMediaUploadPath ||
-      window.coisas.defaultMediaUploadPath === '') {
+  if (window.qontent.defaultMediaUploadPath ||
+      window.qontent.defaultMediaUploadPath === '') {
     return h('#Upload', [
       h(Title),
       h('.upload', [
@@ -213,7 +255,7 @@ const Title = observer(function Title () {
   if (
     state.current.editable.get() &&
     (state.mode.get() === EDIT || state.mode.get() === ADD) &&
-    window.coisas.canPreview(
+    window.qontent.canPreview(
       state.current.path.get(),
       state.current.ext.get(),
       !state.existing.get()
@@ -262,7 +304,7 @@ const PagePreview = observer(function PagePreview () {
   return h('#PagePreview', {
     ref: el => {
       if (el) {
-        window.coisas.generatePreview(el, {
+        window.qontent.generatePreview(el, {
           path: state.current.path.get(),
           name: state.current.name.get(),
           ext: state.current.ext.get(),
@@ -444,12 +486,12 @@ const Images = observer(function Images () {
             h('button.button.is-small.is-info', {
               onClick: () => {
                 let file = state.mediaUpload.file.get()
-                log.info(`Uploading ${file.name} to ${window.coisas.defaultMediaUploadPath}/.`)
+                log.info(`Uploading ${file.name} to ${window.qontent.defaultMediaUploadPath}/.`)
 
                 gh.saveFile({
                   repoSlug: state.slug.get(),
                   mode: UPLOAD,
-                  path: `${window.coisas.defaultMediaUploadPath}/${file.name}`,
+                  path: `${window.qontent.defaultMediaUploadPath}/${file.name}`,
                   content: state.mediaUpload.base64.get()
                 })
                 .then(() => {

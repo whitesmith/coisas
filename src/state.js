@@ -229,7 +229,7 @@ function loadFile (path) {
 
 module.exports.newFile = newFile
 function newFile (dirpath) {
-  return window.coisas.defaultNewFile(dirpath)
+  return window.qontent.defaultNewFile(dirpath)
     .then(({name, content, metadata}) => {
       clearCurrent()
       state.current.directory.set(dirpath)
@@ -264,7 +264,7 @@ function loadTree () {
       url: '~'
     })
 
-    tree.tree = tree.tree.filter(window.coisas.filterTreeFiles)
+    tree.tree = tree.tree.filter(window.qontent.filterTreeFiles)
 
     for (let i = 0; i < tree.tree.length; i++) {
       let f = tree.tree[i]
@@ -335,7 +335,7 @@ page('/:owner/:repo/*', ctx => {
   window.tc && window.tc(2)
   const repoName = ctx.params.owner + '/' + ctx.params.repo
   storage.storeRepo(repoName)
-  window.coisas.loadPreferences(ctx)
+  window.qontent.loadPreferences(ctx)
     .then(() => {
       state.route.set({componentName: 'repo', ctx})
 

@@ -1,7 +1,8 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
 @import "node_modules/bulma/bulma.sass";
 
 :root {
-  --main-background: #bcf7d3;
+  --main-background: #ECF0F3;
   --main-text: #4a4a4a;
 
   --nav-background: white;
@@ -34,7 +35,10 @@
 
 @import "prosemirror.scss";
 
-html, body { min-height: 100vh; }
+html,
+body {
+  min-height: 100vh;
+}
 
 body {
   background-color: var(--main-background);
@@ -52,6 +56,9 @@ nav.nav {
       filter: brightness(0.6);
     }
   }
+}
+.navbar {
+  margin-bottom: 1rem;
 }
 
 main {
@@ -79,7 +86,7 @@ main {
         color: black;
       }
     }
-    
+
     padding-bottom: 20px;
   }
 }
@@ -111,7 +118,7 @@ button.upload {
   color: var(--upload-button-text);
 }
 
-#Delete button { 
+#Delete button {
   background-color: var(--delete-button-background);
   color: var(--delete-button-text);
 
@@ -131,11 +138,11 @@ button.button {
     filter: brightness(0.9);
   }
 
-  &:focus, &:active {
+  &:focus,
+  &:active {
     filter: brightness(0.8);
   }
 }
-
 
 #Page {
   margin-top: 20px;
@@ -161,8 +168,12 @@ button.button {
   margin: 7px;
   border: dotted 6px var(--file-area);
 
-  & > * { width: 100%; }
-  .file *:not(img) { min-height: 500px; }
+  & > * {
+    width: 100%;
+  }
+  .file *:not(img) {
+    min-height: 500px;
+  }
 }
 
 .dropzone {
@@ -186,18 +197,35 @@ button.button {
   }
 }
 
-.CodeMirror, .ProseMirror {
+.CodeMirror,
+.ProseMirror {
   background-color: var(--editor-background);
   color: var(--editor-text);
 }
 
-.title { color: inherit; }
-.subtitle { color: inherit; }
-.content { color: inherit; }
-.table { color: inherit; background-color: inherit; }
-.tag { margin: 0 3px; }
-.card { margin: 12px 12px 12px 0; }
-.tabs { height: 3em; margin-top: -1em; }
+.title {
+  color: inherit;
+}
+.subtitle {
+  color: inherit;
+}
+.content {
+  color: inherit;
+}
+.table {
+  color: inherit;
+  background-color: inherit;
+}
+.tag {
+  margin: 0 3px;
+}
+.card {
+  margin: 12px 12px 12px 0;
+}
+.tabs {
+  height: 3em;
+  margin-top: -1em;
+}
 
 .notie-container {
   top: auto !important;
@@ -208,11 +236,19 @@ button.button {
   margin-bottom: 0 !important;
 }
 
-.jsonEditor .jsonName label { padding-left: 12px; }
+.jsonEditor .jsonName label {
+  padding-left: 12px;
+}
 .jsonEditor .jsonName,
 .jsonEditor .jsonValue {
   background: white;
   padding: 5px;
+}
+
+.panel {
+  background-color: white;
+  border-radius: 6px;
+  color: #4a4a4a;
 }
 
 .tree-view {
@@ -220,6 +256,35 @@ button.button {
 
   .tree-view_item {
     color: var(--tree-folder-text);
+    position: relative;
+    padding-left: 20px;
+
+    .tree-view_arrow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      &:after {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      &.tree-view_arrow-collapsed {
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        transform: none;
+        &:after {
+          -webkit-transform: rotate(-90deg);
+          -moz-transform: rotate(-90deg);
+          -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+        }
+      }
+    }
   }
 
   a {
@@ -237,7 +302,9 @@ button.button {
   }
 }
 
-.menu-list a { padding: 0 .75em; }
+.menu-list a {
+  padding: 0 0.75em;
+}
 
 .button-list {
   color: #646363 !important;
@@ -245,6 +312,6 @@ button.button {
   background-color: transparent !important;
   &:hover {
     color: #bcf7d3 !important;
-    background-color: #646363 !important; 
+    background-color: #646363 !important;
   }
 }

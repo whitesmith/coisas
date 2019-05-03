@@ -26,12 +26,12 @@ const defaultPreferences = {
   // the token doesn't have to be an OAuth token, it may be a GitHub Personal
   // User Token, or a basic token made from username and password.
   authorizationInit: () => new Promise((resolve, reject) => {
-    let popup = window.open(window.coisas.authorizationURL)
+    let popup = window.open(window.qontent.authorizationURL)
     window.addEventListener('message', e => {
       let parts = e.data.split(':')
       let type = parts[0]
       if (type === 'authorizing') {
-        popup.postMessage('send me the token!', window.coisas.authorizationURL)
+        popup.postMessage('send me the token!', window.qontent.authorizationURL)
         return
       }
 
@@ -134,12 +134,12 @@ const defaultPreferences = {
 }
 
 // module loading side-effects are great.
-if (window.coisas) {
+if (window.qontent) {
   // someone have injected his preferences directly.
   // this must mean coisas is being hosted somewhere
-  window.coisas = {...defaultPreferences, ...window.coisas}
+  window.qontent = {...defaultPreferences, ...window.qontent}
 } else {
   // no settings found, we will fetch the settings
   // loader from the chosen repository.
-  window.coisas = defaultPreferences
+  window.qontent = defaultPreferences
 }
