@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "parcel build index.html",
-    "start": "parcel index.html"
+    "build": "rm -rf dist && rm -rf .cache && parcel index.html --public-url /qontent",
+    "start": "parcel index.html",
+    "deploy": "NODE_DEBUG=gh-pages gh-pages -d dist"
   },
   "browserify": {
     "transform": [
@@ -47,8 +48,10 @@
     "render-media": "^2.10.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "bubleify": "^1.1.0",
-    "bulma": "^0.5.0",
+    "bulma": "^0.7.4",
+    "gh-pages": "^2.0.1",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.0.0",
     "parcel-plugin-transformify": "^0.2.0",
